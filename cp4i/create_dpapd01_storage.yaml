@@ -1,0 +1,61 @@
+apiVersion: datapower.ibm.com/v1beta3
+kind: DataPowerService
+metadata:
+  labels:
+    backup.datapower.ibm.com/component: datapowerservice
+  name: dpapd01
+  namespace: dp-apac
+spec:
+  license:
+    accept: true
+    license: L-PMCK-LJS8QM
+    use: nonproduction
+  replicas: 1
+  resources:
+    limits:
+      memory: 4Gi
+    requests:
+      cpu: 1
+      memory: 4Gi
+  users:
+    - accessLevel: privileged
+      name: admin
+      passwordSecret: dp-credentials
+  version: 10.6-cd
+  domains:
+    - name: default
+      dpApp:
+        config:
+          - dpapd01-default-config
+  podAutoScaling:
+    method: VPA
+    vpa:
+      maxAllowedCPU: '2'
+      maxAllowedMemory: 5Gi  
+  storage:
+    - class: px-db
+      path: /opt/ibm/datapower/drouter/config
+      size: 2Gi
+      type: persistent
+    - class: px-db
+      path: /opt/ibm/datapower/drouter/local
+      size: 3Gi
+      type: persistent
+    - class: px-db
+      path: /opt/ibm/datapower/root/secure/usrcerts
+      size: 1Gi
+      type: persistent
+    - class: px-db
+      path: /opt/ibm/datapower/root/secure/sharedcerts
+      size: 1Gi
+      type: persistent
+    - class: px-db
+      path: /opt/ibm/datapower/drouter/store/pubcerts
+      size: 1Gi
+      type: persistent
+  updateStrategy:
+    mode: automatic
+    rolloutHistoryLimit: 2
+  healthCheck:
+    logLevel: debug
+

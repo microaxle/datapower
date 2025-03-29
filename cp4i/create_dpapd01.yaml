@@ -1,0 +1,40 @@
+apiVersion: datapower.ibm.com/v1beta3
+kind: DataPowerService
+metadata:
+  labels:
+    backup.datapower.ibm.com/component: datapowerservice
+  name: dpapd01
+  namespace: dp-apac
+spec:
+  license:
+    accept: true
+    license: L-PMCK-LJS8QM
+    use: nonproduction
+  domains:
+  - name: default
+    dpApp:
+      config:
+      - dpapd01-default-config
+  replicas: 1
+  resources:
+    limits:
+      memory: 4Gi
+    requests:
+      cpu: 1
+      memory: 4Gi
+  users:
+    - accessLevel: privileged
+      name: admin
+      passwordSecret: dp-credentials
+  version: 10.6-cd
+  podAutoScaling:
+    method: VPA
+    vpa:
+      maxAllowedCPU: '5'
+      maxAllowedMemory: 8Gi
+  updateStrategy:
+    mode: automatic
+    rolloutHistoryLimit: 2
+  healthCheck:
+    logLevel: debug
+

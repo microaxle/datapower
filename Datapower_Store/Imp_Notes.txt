@@ -1,0 +1,25 @@
+"RemoveCheckpoint":
+/mgmt/actionqueue/QA_External/operations/RemoveCheckpoint
+        
+"RollbackCheckpoint":
+/mgmt/actionqueue/default/operations/RollbackCheckpoint
+
+SaveCheckpoint":
+/mgmt/actionqueue/QA_External/operations/SaveCheckpoint
+
+Create Certificates and keys with below names.. and deploy the zip files in app domains
+	- datapower.microaxle.lab -- ( Datapower Personal Cert )
+	- datapower.microaxle.lab-privkey.pem -- ( Datapower Private key )
+	- ghibliapi.herokuapp.com -- ( ghibli service certificate )
+	
+Create Domains as below
+	- QA_External
+		- Deploy Ghibli-GetFilms-MPGW service
+		- Deploy Ghibli-GetVehicles-MPGW service
+		
+	- QA_HttpGateway
+		- Deploy QA-HttpGateway service
+
+Test the service as below.
+curl -s -k --request GET https://prod-01.microaxle.lab/ghibli/films
+curl -s -k --request GET https://prod-01.microaxle.lab/ghibli/vehicles

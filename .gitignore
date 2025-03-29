@@ -1,0 +1,15 @@
+# Virtual environment
+venv/
+env/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Other common ignores
+.DS_Store  # macOS
+*.log
+*.pid
+*.swp

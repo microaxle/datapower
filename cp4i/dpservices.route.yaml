@@ -1,0 +1,19 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: dpservices
+  namespace: dp-apac
+spec:
+  to:
+    kind: Service
+    name: services-dpapd01
+  tls:
+    termination: passthrough
+    insecureEdgeTerminationPolicy: ''
+    certificate: ''
+    key: ''
+    caCertificate: ''
+    destinationCACertificate: ''
+  port:
+    targetPort: dpservices
+

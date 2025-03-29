@@ -1,0 +1,27 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: services-dpapd01
+  namespace: dp-apac
+spec:
+  ports:
+  - name: webgui-dpapd01 
+    protocol: TCP
+    port: 9090
+    targetPort: 9090
+  - name: restapi-dpapd01
+    protocol: TCP
+    port: 5554
+    targetPort: 5554
+  - name: dpservices
+    protocol: TCP
+    port: 443
+    targetPort: 443
+  selector:
+    app.kubernetes.io/instance: dp-apac-dpapd01
+    app.kubernetes.io/name: datapower
+  type: ClusterIP
+  sessionAffinity: None
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack

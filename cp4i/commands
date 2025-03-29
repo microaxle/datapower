@@ -1,0 +1,10 @@
+oc create secret generic dp-credentials --from-literal=password=admin1 -n dp-apac
+oc create configmap dpapd01-default-config --from-file=webgui.cfg=webgui.cfg -n dp-apac
+oc apply -f services-dpapd01.yaml -n dp-apac
+oc apply -f webgui-dpapd01-route.yaml
+oc apply -f restapi-dpapd01-route.yaml
+
+# Finally deploy datapower ( you can apply external storage datapower or epheramal datapower )
+oc apply -f create_dpapd01_storage.yaml
+	(or)
+oc apply -f create_dpapd01.yaml
